@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
+        setSupportActionBar(mBinding.toolbar)
+
         mBinding.addNotes.setOnClickListener { addNotesClicked() }
 
     }
@@ -24,6 +26,11 @@ class MainActivity : AppCompatActivity() {
     {
         mBinding.addNotes.visibility = View.GONE
         addFragment(supportFragmentManager, AddNotesFragment.newInstance(), "add new note", R.id.fragments_holder, true)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        mBinding.addNotes.visibility = View.VISIBLE
     }
 }
 

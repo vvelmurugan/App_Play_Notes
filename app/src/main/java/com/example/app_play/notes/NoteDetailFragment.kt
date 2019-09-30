@@ -47,6 +47,7 @@ class NoteDetailFragment : Fragment()
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
+        activity?.actionBar?.title = "Note Detail"
         mNoteId = arguments?.getString(NotesEntry.COLUMN_NOTE_ID) ?: "-1"
         mBinding = DataBindingUtil.inflate(inflater, R.layout.note_detail_fragment, container, false)
         //To enable toolbar to have options

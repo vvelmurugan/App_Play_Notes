@@ -41,10 +41,12 @@ class MainActivity : AppCompatActivity() {
     {
         mBinding.addNotes.visibility = View.GONE
         addFragment(supportFragmentManager, AddNotesFragment.newInstance(), "add new note", R.id.fragments_holder, true)
+        supportActionBar?.title = "Add Your Notes"
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
+        supportActionBar?.title = "Notes"
         mBinding.addNotes.visibility = View.VISIBLE
     }
 
@@ -68,6 +70,7 @@ class MainActivity : AppCompatActivity() {
     {
         mBinding.addNotes.visibility = View.GONE
         addFragment(supportFragmentManager, NoteDetailFragment.newInstance(noteId), "note detail", R.id.fragments_holder, true)
+        supportActionBar?.title = "Note Detail"
     }
 
 }

@@ -38,6 +38,7 @@ class AddNotesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
+        activity?.actionBar?.title = "Add Your Note"
         mBinding = DataBindingUtil.inflate(inflater, R.layout.add_new_notes, container, false)
         //To enable toolbar to have options
         setHasOptionsMenu(true)

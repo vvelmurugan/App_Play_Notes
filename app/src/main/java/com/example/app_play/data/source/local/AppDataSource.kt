@@ -19,4 +19,5 @@ interface AppDataSource
 
     fun addNote(title: String, description: String)
     fun getNotes(callback: DataLayerCallback<List<Note>>)
+    fun getNoteDetail(noteId: String, callback: DataLayerCallback<Note>)
 }

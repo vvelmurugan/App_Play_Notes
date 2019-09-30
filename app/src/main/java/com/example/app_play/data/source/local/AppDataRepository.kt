@@ -70,4 +70,31 @@ class AppDataRepository private constructor(val context: Context): AppDataSource
             callback.onError(ErrorMessage(ErrorMessage.NO_LOCAL_DATA))
         }
     }
+
+    override fun getNoteDetail(noteId: String, callback: AppDataSource.DataLayerCallback<Note>) {
+        val cursor = mContentResolver.query(NotesEntry.CONTENT_URI,null,"${NotesEntry.COLUMN_NOTE_ID} = ?",
+            arrayOf(noteId),null)
+
+        var note: Note? = null
+        cursor?.use {
+            cursor.apply {
+                while(moveToNext())
+                {
+                    val noteId = getString(NotesEntry.COLUMN_NOTE_ID)
+                    val title = getString(NotesEntry.COLUMN_NOTE_TITLE)
+                    val description = getString(NotesEntry.COLUMN_NOTE_DESCRIPTION)
+
+                    note = Note(noteId, title, description)
+                }
+            }
+        }
+
+        if(note != null)
+        {
+            callback.onSuccess(note!!)
+        }
+        else{
+            callback.onError(ErrorMessage(ErrorMessage.NO_LOCAL_DATA))
+        }
+    }
 }

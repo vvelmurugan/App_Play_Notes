@@ -19,6 +19,7 @@ import com.example.app_play.utils.hideKeyboard
  */
 
 class AddNotesFragment : Fragment() {
+
     companion object {
         fun newInstance(): AddNotesFragment {
             val bundle = Bundle()

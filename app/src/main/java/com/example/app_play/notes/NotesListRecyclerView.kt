@@ -14,7 +14,7 @@ import com.example.app_play.R
  *
  */
 
-class NotesListRecyclerView : RecyclerView.Adapter<RecyclerView.ViewHolder>()
+class NotesListRecyclerView(val onItemClicked: (String) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
     var mNotes = mutableListOf<Note>()
 
@@ -27,22 +27,28 @@ class NotesListRecyclerView : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_list_item,parent,false)
-        return NotesViewHolder(view)
+        return NotesViewHolder(view){onItemClicked.invoke(it)}
     }
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val note = mNotes[position]
-        (holder as NotesViewHolder).setTitle(note.title)
+        (holder as NotesViewHolder).setTitle(note.id, note.title)
     }
 
 
-    class NotesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    class NotesViewHolder(itemView: View, onItemClicked: (String) -> Unit): RecyclerView.ViewHolder(itemView)
     {
         private val titleView = itemView.findViewById<TextView>(R.id.note_item)
+        private var itemId:String = "-1"
 
-        fun setTitle(title: String)
+        init {
+            itemView.setOnClickListener { onItemClicked.invoke(itemId) }
+        }
+
+        fun setTitle(noteId: String, title: String)
         {
+            itemId = noteId
             titleView.text = title
         }
     }

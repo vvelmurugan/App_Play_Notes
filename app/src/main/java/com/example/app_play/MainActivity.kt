@@ -11,13 +11,16 @@ import com.example.app_play.data.source.local.ErrorMessage
 import com.example.app_play.databinding.ActivityMainBinding
 import com.example.app_play.notes.AddNotesFragment
 import com.example.app_play.notes.Note
+import com.example.app_play.notes.NoteDetailFragment
 import com.example.app_play.notes.NotesListRecyclerView
 import com.example.app_play.utils.addFragment
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var mBinding: ActivityMainBinding
-    val mAdapter = NotesListRecyclerView()
+    val mAdapter = NotesListRecyclerView{
+        onNoteItemClicked(it)
+    }
     val dataSource = AppDataRepository.getInstance(BaseApplication.getInstance())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +62,12 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun onNoteItemClicked(noteId: String)
+    {
+        mBinding.addNotes.visibility = View.GONE
+        addFragment(supportFragmentManager, NoteDetailFragment.newInstance(noteId), "note detail", R.id.fragments_holder, true)
     }
 
 }
